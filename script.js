@@ -4,10 +4,15 @@ var url = 'https://api.covid19api.com/country/Singapore';
 var currentLocation;
 
 //finding current location
-function jsonpCallback(data) { 
-  console.log('Country: ' + data.address.country); 
-  currentLocation = data.address.country;
-}
+fetch('https://ipapi.co/json/')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(data) {
+    console.log(data);
+    currentLocation = data.country_name
+  });
+
 
 document.onclick = function (a) {
     if (a.target.id == 'submit') {
