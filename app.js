@@ -1,3 +1,5 @@
+//Script for the sidebar that appears when the burger button is pressed while in mobile mode, or when the page is narrow
+
 const navSlide = () => {
     const burger = document.querySelector('.burger');
     const nav = document.querySelector('.nav-links');

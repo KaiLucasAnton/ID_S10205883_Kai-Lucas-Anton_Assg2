@@ -1,62 +1,46 @@
-var setCookie = function (n, val) {
-    var exdays = 30;
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    var expires = "expires=" + d.toGMTString();
-    document.cookie = n + "=" + val + "; " + expires;
-};
-
-var getCookie = function (n) {
-    var name = n + "=";
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') c = c.substring(1);
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-};
-
-document.onclick = function (e) {
-    if (e.target.className == 'btn') {
-        var favColor = e.target.style.backgroundColor;
-        setCookie('color', favColor);
-        document.body.style.backgroundColor = favColor;
-        console.log(favColor);
-    }
-    if (favColor == "Black") {
-        document.body.style.color = "white";
-    }
-};
-
-window.onload = function () {
-    var favColor = document.body.style.backgroundColor;
-    var color = getCookie('color');
-    if (color === '') {
-        document.body.style.backgroundColor = favColor;
-    } else {
-      document.body.style.backgroundColor = color;
-    }
-
-    if (favColor == "Black") {
-        document.body.style.color = "white";
-    }
-};
-
-var x = document.getElementById("demo");
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else {
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
+//finding current location
+function jsonpCallback(data) { 
+  console.log('Country: ' + data.address.country); 
+  var curCountry = data.address.country;
 }
 
-function showPosition(position) {
-  x.innerHTML = "Latitude: " + position.coords.latitude +
-  "<br>Longitude: " + position.coords.longitude;
+//Apify covid-19
+var api = 'https://api.covid19api.com/country/';
+var input = 'Singapore';
+var url = 'https://api.covid19api.com/country/Singapore';
+document.onclick = function (a) {
+    
+    if (a.target.id == 'submit') {
+        url = api + input
+        fetch(url)
+        .then(response => response.json()
+        //writing out data into a table in html
+        .then(data=>{
+            var table = document.getElementById('myTable');
+            console.log(data);
+            i = data.length - 1;
+            console.log(i);
+            console.log(data[i]);
+            var row = `<tr>
+            <td>${data[i].Country}</td>
+            <td>${data[i].Confirmed}</td>
+            <td>${data[i].Deaths}</td>
+            <td>${data[i].Recovered}</td>
+            <td>${data[i].Active}</td>
+            </tr>`;
+            table.innerHTML += row
+        }))
+    }
 }
 
-
+//new country button
+function getInputValue(){
+    // Selecting the input element and get its value 
+    var inputVal = document.getElementById("country").value;
+    // Displaying the value
+    input = inputVal;
+}
+function getLocationValue(){
+    // Displaying the value
+    input = inputVal;
+}
