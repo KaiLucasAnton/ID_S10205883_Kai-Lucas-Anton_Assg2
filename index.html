@@ -31,32 +31,30 @@
                 </nav>
             </section>
         </header>
-        
-        <!-- Find location button
-        <p>Click the button to get your coordinates.</p>
-
-        <button onclick="getLocation()">Try It</button>
-        -->
 
         <p>
-            <input type="text" placeholder="Type country..." id="country"> -or- 
-            <button type="button" id='location' >use current location</button></br>
-            <button type="button" id='submit' onclick="getInputValue();">Submit</button>
+            <input type="text" placeholder="Type a country..." id="country" class="searchBar"></br>
+            <div class="submit">
+                <button type="button" id='submit' onclick="getInputValue();">Submit</button> -or- 
+                <button type="button" id='submit' onclick="getLocationValue();">use current location</button> -or- 
+                <button type="button" id='global' onclick="getGlobalValue();">get global data</button>
+            </div>
         </p>
         <table class="table table-striped">
             <tr class = "bg-info">
-                <th>Country</th>
-                <th>Confirmed</th>
-                <th>Deaths</th>
-                <th>Recovered</th>
-                <th>Active</th>
+                <th data-column="country"   data-order="desc">Country</th>
+                <th data-column="confirmed" data-order="desc">Confirmed</th>
+                <th data-column="deaths"    data-order="desc">Deaths</th>
+                <th data-column="recovered" data-order="desc">Recovered</th>
+                <th data-column="active"    data-order="desc">Active</th>
             </tr>
             <tbody id="myTable"></tbody>
         </table>
 
         <script src="app.js"></script>
-        <script src="script.js"></script>
         <script src="bg.js"></script>
+        <script src="script.js"></script>
+        
         <!-- for finding country -->
         <script src="http://api.wipmania.com/jsonp?callback=jsonpCallback"
         type="text/javascript"></script>
@@ -67,6 +65,9 @@
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 
         crossorigin="anonymous"></script>
-        
+        <!-- for table -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href="style.css" rel="stylesheet" type="text/css" />
     </body>
 </html> 

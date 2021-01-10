@@ -1,15 +1,15 @@
+var api = 'https://api.covid19api.com/country/';
+var input;
+var url = 'https://api.covid19api.com/country/Singapore';
+var currentLocation;
+
 //finding current location
 function jsonpCallback(data) { 
   console.log('Country: ' + data.address.country); 
-  var curCountry = data.address.country;
+  currentLocation = data.address.country;
 }
 
-//Apify covid-19
-var api = 'https://api.covid19api.com/country/';
-var input = 'Singapore';
-var url = 'https://api.covid19api.com/country/Singapore';
 document.onclick = function (a) {
-    
     if (a.target.id == 'submit') {
         url = api + input
         fetch(url)
@@ -17,7 +17,6 @@ document.onclick = function (a) {
         //writing out data into a table in html
         .then(data=>{
             var table = document.getElementById('myTable');
-            console.log(data);
             i = data.length - 1;
             console.log(i);
             console.log(data[i]);
@@ -40,7 +39,30 @@ function getInputValue(){
     // Displaying the value
     input = inputVal;
 }
+
 function getLocationValue(){
     // Displaying the value
-    input = inputVal;
+    input = currentLocation;
 }
+
+function getGlobalValue(){
+    fetch('https://api.covid19api.com/summary')
+    .then(response => response.json()
+        //writing out data into a table in html
+        .then(data=>{
+            var table = document.getElementById('myTable');
+            i = 0
+            console.log(0);
+            console.log(data.Global);
+            var active = data.Global.TotalConfirmed-data.Global.TotalDeaths-data.Global.TotalRecovered
+            var row = `<tr>
+            <td>Global</td>
+            <td>${data.Global.TotalConfirmed}</td>
+            <td>${data.Global.TotalDeaths}</td>
+            <td>${data.Global.TotalRecovered}</td>
+            <td>NA</td>
+            </tr>`;
+            table.innerHTML += row
+        }))
+}
+
